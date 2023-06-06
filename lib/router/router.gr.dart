@@ -33,16 +33,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OrdersScreen(),
       );
     },
-    AppWidget.name: (routeData) {
-      final args = routeData.argsAs<AppWidgetArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: AppWidget(
-          key: args.key,
-          title: args.title,
-        ),
-      );
-    },
   };
 }
 
@@ -86,41 +76,4 @@ class OrdersRoute extends PageRouteInfo<void> {
   static const String name = 'OrdersRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [AppWidget]
-class AppWidget extends PageRouteInfo<AppWidgetArgs> {
-  AppWidget({
-    Key? key,
-    required String title,
-    List<PageRouteInfo>? children,
-  }) : super(
-          AppWidget.name,
-          args: AppWidgetArgs(
-            key: key,
-            title: title,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'AppWidget';
-
-  static const PageInfo<AppWidgetArgs> page = PageInfo<AppWidgetArgs>(name);
-}
-
-class AppWidgetArgs {
-  const AppWidgetArgs({
-    this.key,
-    required this.title,
-  });
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'AppWidgetArgs{key: $key, title: $title}';
-  }
 }

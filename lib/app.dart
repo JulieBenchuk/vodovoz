@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:vodovoz/router/router.dart';
 import 'domain/domain.dart';
 
-@RoutePage()
 class AppWidget extends StatefulWidget {
-  const AppWidget({super.key, required this.title});
-  final String title;
-
+  const AppWidget({super.key});
   @override
   State<AppWidget> createState() => _AppWidgetState();
 }
@@ -38,6 +36,7 @@ class _AppWidgetState extends State<AppWidget> {
                 unselectedFontSize: 14,
                 onTap: (value) {
                   setState(() => _currentIndex = value);
+                  AutoRouter.of(context).push(const ProductListRoute());
                 },
                 items: const [
                   BottomNavigationBarItem(
