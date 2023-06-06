@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
 import 'domain/domain.dart';
 
+@RoutePage()
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key, required this.title});
   final String title;
