@@ -13,6 +13,7 @@ class AppWidget extends StatefulWidget {
 
 class _AppWidgetState extends State<AppWidget> {
   Future? _data;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -26,30 +27,32 @@ class _AppWidgetState extends State<AppWidget> {
         future: _data,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.white,
-              selectedItemColor: Color(0xFF008DD2),
-              unselectedItemColor: Colors.black87,
-              selectedFontSize: 14,
-              unselectedFontSize: 14,
-              onTap: (value) {
-                // Respond to item press.
-              },
-              items: const [
-                BottomNavigationBarItem(
-                  label: 'Товары',
-                  icon: Icon(Icons.invert_colors_rounded),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Корзина',
-                  icon: Icon(Icons.add_shopping_cart),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Заказы',
-                  icon: Icon(Icons.published_with_changes),
-                ),
-              ],
+            return Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.white,
+                selectedItemColor: Color(0xFF008DD2),
+                unselectedItemColor: Colors.black87,
+                selectedFontSize: 14,
+                unselectedFontSize: 14,
+                onTap: (value) {
+                  // Respond to item press.
+                },
+                items: const [
+                  BottomNavigationBarItem(
+                    label: 'Товары',
+                    icon: Icon(Icons.invert_colors_rounded),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Корзина',
+                    icon: Icon(Icons.add_shopping_cart),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Заказы',
+                    icon: Icon(Icons.published_with_changes),
+                  ),
+                ],
+              ),
             );
           } else if (snapshot.hasError) {
             return const Directionality(
