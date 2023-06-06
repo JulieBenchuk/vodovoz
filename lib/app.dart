@@ -4,7 +4,6 @@ import 'domain/domain.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key, required this.title});
-
   final String title;
 
   @override
@@ -29,14 +28,15 @@ class _AppWidgetState extends State<AppWidget> {
           if (snapshot.hasData) {
             return Scaffold(
               bottomNavigationBar: BottomNavigationBar(
+                currentIndex: _currentIndex,
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.white,
-                selectedItemColor: Color(0xFF008DD2),
+                selectedItemColor: const Color(0xFF008DD2),
                 unselectedItemColor: Colors.black87,
                 selectedFontSize: 14,
                 unselectedFontSize: 14,
                 onTap: (value) {
-                  // Respond to item press.
+                  setState(() => _currentIndex = value);
                 },
                 items: const [
                   BottomNavigationBarItem(
@@ -45,7 +45,7 @@ class _AppWidgetState extends State<AppWidget> {
                   ),
                   BottomNavigationBarItem(
                     label: 'Корзина',
-                    icon: Icon(Icons.add_shopping_cart),
+                    icon: Icon(Icons.add_shopping_cart, size: 30,),
                   ),
                   BottomNavigationBarItem(
                     label: 'Заказы',
