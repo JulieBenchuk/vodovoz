@@ -5,13 +5,13 @@ import 'domain/domain.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
+
   @override
   State<AppWidget> createState() => _AppWidgetState();
 }
 
 class _AppWidgetState extends State<AppWidget> {
   Future? _data;
-  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -25,35 +25,43 @@ class _AppWidgetState extends State<AppWidget> {
         future: _data,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Scaffold(
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: _currentIndex,
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.white,
-                selectedItemColor: const Color(0xFF008DD2),
-                unselectedItemColor: Colors.black87,
-                selectedFontSize: 14,
-                unselectedFontSize: 14,
-                onTap: (value) {
-                  setState(() => _currentIndex = value);
-                  AutoRouter.of(context).push(const ProductListRoute());
-                },
-                items: const [
-                  BottomNavigationBarItem(
-                    label: 'Товары',
-                    icon: Icon(Icons.invert_colors_rounded),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Корзина',
-                    icon: Icon(Icons.add_shopping_cart, size: 30,),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Заказы',
-                    icon: Icon(Icons.published_with_changes),
-                  ),
-                ],
-              ),
+            return AutoTabsScaffold(
+              routes: const [
+                ProductListRoute(),
+                OrdersRoute(),
+                BasketRoute(),
+              ],
+              bottomNavigationBuilder: (_, tabsRouter) {
+                return BottomNavigationBar(
+                  currentIndex: tabsRouter.activeIndex,
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: Colors.white,
+                  selectedItemColor: const Color(0xFF008DD2),
+                  unselectedItemColor: Colors.black87,
+                  selectedFontSize: 14,
+                  unselectedFontSize: 14,
+                  onTap: tabsRouter.setActiveIndex,
+                  items: const [
+                    BottomNavigationBarItem(
+                      label: 'Товары',
+                      icon: Icon(Icons.invert_colors_rounded),
+                    ),
+                    BottomNavigationBarItem(
+                      label: 'Корзина',
+                      icon: Icon(
+                        Icons.add_shopping_cart,
+                        size: 30,
+                      ),
+                    ),
+                    BottomNavigationBarItem(
+                      label: 'Заказы',
+                      icon: Icon(Icons.published_with_changes),
+                    ),
+                  ],
+                );
+              },
             );
+
           } else if (snapshot.hasError) {
             return const Directionality(
                 textDirection: TextDirection.rtl,
@@ -64,6 +72,5 @@ class _AppWidgetState extends State<AppWidget> {
         });
   }
 
-  Future<dynamic> _fetchServerIP() async =>
-      await Domain().fetchServerIP();
+  Future<dynamic> _fetchServerIP() async => await Domain().fetchServerIP();
 }
